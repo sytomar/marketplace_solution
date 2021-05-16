@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Welcome to the dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron text-center">
+      <a href="/" class="btn btn-primary" role="button"><h2><i class="fa fa-home fa-3" aria-hidden="true"></i></h2></a>
+      <a href="/users" class="btn btn-primary" role="button"><h3><i class="fa fa-user fa-3" aria-hidden="true"></i></h3></a>
+      <h2><a href="/user/<%=response.userId %>/products" class="btn btn-primary" role="button">User Products</a></h2>
+      <h1>Product Detail</h1> 
+      <h2><a href="/user/<%=response.userId %>/editProduct/<%=response.productId %>" class="btn btn-primary" role="button">Edit Product</a></h2>
+    </div>
+    <div class="row">
+      <% if (response.isExist) { %>
+        <div class="col-sm-6">
+          <div class="card bg-dark text-white">
+            <img src="<%=response.data.productImage %>" class="card-img" alt="...">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-12">
+                <div class="card-body">
+                  <div class="row g-0">
+                    <div class="col-md-3">
+                      <h5 class="card-title">Id</h5>
+                    </div>
+                    <div class="col-md-9">
+                      <h5 class="card-title"><span><%=response.data.productId %></span></h5>
+                    </div>
+                  </div>
+                  <div class="row g-0">
+                    <div class="col-md-3">
+                      <h5 class="card-title">Name</h5>
+                    </div>
+                    <div class="col-md-9">
+                      <h5 class="card-title"><span><%=response.data.productName %></span></h5>
+                    </div>
+                  </div>
+                  <div class="row g-0">
+                    <div class="col-md-3">
+                      <h5 class="card-title">Category</h5>
+                    </div>
+                    <div class="col-md-9">
+                      <h5 class="card-title"><span><%=response.data.productCategory %></span></h5>
+                    </div>
+                  </div>
+                  <div class="row g-0">
+                    <div class="col-md-3">
+                      <h5 class="card-title">Price</h5>
+                    </div>
+                    <div class="col-md-9">
+                      <h5 class="card-title"><span>$<%=parseFloat(response.data.productPrice).toFixed(2) %></span></h5>
+                    </div>
+                  </div>
+                  <div class="row g-0">
+                    <div class="col-md-3">
+                      <h5 class="card-title">Sale Price</h5>
+                    </div>
+                    <div class="col-md-9">
+                      <h5 class="card-title"><span>$<%=parseFloat(response.data.salePrice).toFixed(2)%></span></h5>
+                    </div>
+                  </div>
+                  <p class="card-text"><small class="text-muted">Last updated <%=response.data.productLastModified %></small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <%}%>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Welcome to the dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron text-center">
+      <a href="/" class="btn btn-primary" role="button"><h3><i class="fa fa-home fa-3" aria-hidden="true"></i></h3></a>
+      <a href="/users" class="btn btn-primary" role="button"><h3><i class="fa fa-user fa-3" aria-hidden="true"></i></h3></a>
+      <h3>Change User</h3>
+      <div class="btn-group">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%=response.userDetail.id %>: <%=response.userDetail.name %>
+        </button>
+        <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">  
+          <% response.users.forEach(function(user){ %>
+            <li><a style="text-decoration: none;" href="/user/<%=user.id %>/products"><%=user.id %>: <%=user.name %></a></li>
+          <%});%>
+        </div>
+      </div>
+      <h1>User Products</h1> 
+      <h2><a href="/user/<%=response.userDetail.id %>/addProduct" class="btn btn-primary" role="button">Add User Product</a></h2>
+      <hr>
+      <nav aria-label="Page navigation">
+        <h3>Pages</h3>
+        <ul class="pagination justify-content-center pagination-md">
+          <% response.pages.forEach(function(page){ %>
+            <% if (page == response.current_page) {%>
+              <li class="page-item active"><a class="page-link" href="/user/<%=response.userId %>/products?page=<%=page %>"><%=page %></a></li>
+            <%} else {%>
+              <li class="page-item"><a class="page-link" href="/user/<%=response.userId %>/products?page=<%=page %>"><%=page %></a></li>
+            <%}%>
+          <%});%>
+        </ul>
+      </nav>
+    </div>
+    <% if (response.data.length) { %>
+      <div class="row g-2">
+        <% response.data.forEach(function(product){ %>
+          <div class="col-sm-4 text-center" style="margin-bottom: 20px;">
+            <a href="/user/<%=response.userId %>/products/<%=product.productId %>" style="text-decoration: none;">
+              <div class="card" style="width: 18rem;">
+                <img src="<%=product.productImage %>" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%=product.productName %></h5>
+                  <p class="card-text">Id: <%=product.productId %></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><%=product.productCategory %></li>
+                  <li class="list-group-item">Price: $<%=parseFloat(product.productPrice).toFixed(2) %></li>
+                  <li class="list-group-item">Sale Price: $<%=parseFloat(product.salePrice).toFixed(2) %></li>
+                </ul>
+                <div class="card-body">
+                  <a href="/user/<%=response.userId %>/products/<%=product.productId %>" class="btn btn-primary" role="button">Get Detail</a>
+                  <p class="card-text"><small class="text-muted">Last updated <%=product.productLastModified %></small></p>
+                </div>
+              </div>
+            </a>
+          </div>
+        <%});%>
+      </div>  
+    <%}%>
+    <div class="jumbotron text-center">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pagination-md">
+          <% response.pages.forEach(function(page){ %>
+            <% if (page == response.current_page) {%>
+              <li class="page-item active"><a class="page-link" href="/user/<%=response.userId %>/products?page=<%=page %>"><%=page %></a></li>
+            <%} else {%>
+              <li class="page-item"><a class="page-link" href="/user/<%=response.userId %>/products?page=<%=page %>"><%=page %></a></li>
+            <%}%>
+          <%});%>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Welcome to the dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron text-center">
+      <a href="/" class="btn btn-primary" role="button"><h3><i class="fa fa-home fa-3" aria-hidden="true"></i></h3></a>
+      <a href="/users" class="btn btn-primary" role="button"><h3><i class="fa fa-user fa-3" aria-hidden="true"></i></h3></a>
+      <h2><a href="/user/<%=response.userId %>/products" class="btn btn-primary" role="button">User Products</a></h2>
+      <h1>Edit User Product</h1> 
+    </div>
+    <% if (response.isError) {%>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            There is some issue. Please try again!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <%}%>
+    <form action="/user/<%=response.userId %>/editProduct/<%=response.productId %>" method="post">
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" name="category" id="exampleFormControlSelect1">
+                <% response.category.forEach(function(category){ %>
+                    <% if (category == response.product.productCategory) {%>
+                        <option value="<%=category %>" selected="selected"><%=category %></option>
+                    <%} else {%>
+                        <option value="<%=category %>"><%=category %></option>
+                    <%}%>
+                <%});%>    
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control" value="<%=response.product.productName %>" id="name" placeholder="Product 123" required>
+        </div>
+        <div class="form-group">
+            <label for="image">Image</label>
+            <select class="form-control" name="image" id="image">
+                <% response.images.forEach(function(image){ %>
+                    <% if (image == response.product.productImage) {%>
+                        <option value="<%=image %>" selected="selected"><%=image %></option>
+                    <%} else {%>
+                        <option value="<%=image %>"><%=image %></option>
+                    <%}%>
+                    
+                <%});%>    
+            </select>
+        </div>
+        <div class="form-group">
+            <label>In stock?</label>
+            <div class="form-check form-check-inline">
+                <% if (response.product.productStock) {%>
+                    <input class="form-check-input" type="radio" name="instock" id="instock" value="1" checked>
+                <%} else {%>
+                    <input class="form-check-input" type="radio" name="instock" id="instock" value="1">
+                <%}%>
+                <label class="form-check-label" for="instock">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <% if (response.product.productStock) {%>
+                    <input class="form-check-input" type="radio" name="instock" id="instock" value="0" checked>
+                <%} else {%>
+                    <input class="form-check-input" type="radio" name="instock" id="instock" value="0" >
+                <%}%>
+                <label class="form-check-label" for="instock">No</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" name="price" class="form-control" id="price" value="<%=response.product.productPrice %>" min="1" placeholder="2003" required>
+        </div>
+        <div class="form-group">
+            <label for="sale_price">Sale Price</label>
+            <input type="number" name="sale_price" class="form-control" id="sale_price" value="<%=response.product.salePrice %>" min="1" placeholder="2003" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</body>
+<script>
+    setTimeout( 
+        function() {
+            $(".alert").alert('close');
+        },
+        2000
+    );
+</script>
+</html>

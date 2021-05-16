@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Welcome to the dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron text-center">
+      <a href="/" class="btn btn-primary" role="button"><h3><i class="fa fa-home fa-3" aria-hidden="true"></i></h3></a>
+      <h1>Users</h1> 
+      <hr>
+      <nav aria-label="Page navigation">
+        <h3>Pages</h3>
+        <ul class="pagination justify-content-center pagination-md">
+          <% response.pages.forEach(function(page){ %>
+            <% if (page == response.current_page) {%>
+              <li class="page-item active"><a class="page-link" href="/users?page=<%=page %>"><%=page %></a></li>
+            <%} else {%>
+              <li class="page-item"><a class="page-link" href="/users?page=<%=page %>"><%=page %></a></li>
+            <%}%>
+          <%});%>
+        </ul>
+      </nav>
+    </div>
+    <% if (response.data.length) { %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Products</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+          <tbody>
+            <% response.data.forEach(function(user){ %>
+              <tr>
+                <th scope="row"><%=user.id %></th>
+                <td><%=user.name %></td>
+                <td>
+                  <a href="/user/<%=user.id %>/products" class="btn btn-primary" role="button">Get Products</a>
+                </td>
+                <td>
+                  <a href="/user/<%=user.id %>/addProduct" class="btn btn-primary" role="button">Add Product</a>
+                </td>
+              </tr>
+            <%});%>
+        </tbody>
+      </table>
+      </div>  
+    <%}%>
+    <div class="jumbotron text-center">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pagination-md">
+          <% response.pages.forEach(function(page){ %>
+            <% if (page == response.current_page) {%>
+              <li class="page-item active"><a class="page-link" href="/users?page=<%=page %>"><%=page %></a></li>
+            <%} else {%>
+              <li class="page-item"><a class="page-link" href="/users?page=<%=page %>"><%=page %></a></li>
+            <%}%>
+          <%});%>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</body>
+</html>
