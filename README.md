@@ -10,7 +10,7 @@
   * Run `npm start`
 
 ### NOTE:
-  * Dont forget to add the db files in "./db" directory.
+  * Dont forget to add the db files in "./db" directory. Although i already pushed in this repo.
   * I made few modification in "product.json" file, added new key to every object as because of missing parameters the purpose of the system is not fulfilled.
     * "productOwnerId": integer(user id as owner id),
     * "productLastModified": datetime(when product last modified),
