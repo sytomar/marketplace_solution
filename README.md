@@ -16,6 +16,6 @@
     * "productLastModified": datetime(when product last modified),
     * "productLastModifiedTimestamp": integer(timestamp of when product last modified)
 
-  Either generate this fields in "product.json" file and add to "./db" directory.
+  Either generate this fields in "product.json", then add to "./db" directory or file or use already updated in "./db" directory.
 
 Enjoy Coding 🍻 🍻 🍻 ...!!!
